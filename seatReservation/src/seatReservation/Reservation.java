@@ -18,26 +18,24 @@ public class Reservation extends CheckSeat {
 
 		switch (seatClass) {
 		case 1:
-			checkSeatS();
 			reserSeatS();
+			checkSeatS();
 			break;
 		case 2:
-			checkSeatA();
 			reserSeatA();
+			checkSeatA();
 			break;
 		case 3:
-			checkSeatB();
 			reserSeatB();
+			checkSeatB();
 			break;
 		default:
 			System.out.println("<<< 좌석을 잘못 선택했습니다. >>>");
 		}
+		System.out.println("<<< 예약되었습니다! >>>");
 	}
 
 	// 예약
-	/*
-	 * TODO: 중복 처리 불가능하게
-	 */
 	public void reserSeatS() {
 		if ( seat_S[seatNum - 1] == "----" ) {
 			seat_S[seatNum - 1] = this.userName;
@@ -46,14 +44,14 @@ public class Reservation extends CheckSeat {
 	}
 
 	public void reserSeatA() {
-		if (!seat_A[seatNum - 1].equals("----"))
+		if ( seat_A[seatNum - 1] == "----" )
 			seat_A[seatNum - 1] = this.userName;
 		else
 			System.out.println("<<< 이미 예약된 좌석입니다. >>>");
 	}
 
 	public void reserSeatB() {
-		if (seat_B[seatNum - 1].equals("----"))
+		if ( seat_B[seatNum - 1] == "----" )
 			seat_B[seatNum - 1] = this.userName;
 		else
 			System.out.println("<<< 이미 예약된 좌석입니다. >>>");
