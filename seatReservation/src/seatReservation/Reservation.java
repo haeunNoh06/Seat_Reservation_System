@@ -39,10 +39,8 @@ public class Reservation extends CheckSeat {
 	 * TODO: 중복 처리 불가능하게
 	 */
 	public void reserSeatS() {
-		System.out.println("S랭크입니다.");
-		if (!seat_S[seatNum - 1].equals("----")) {
+		if ( seat_S[seatNum - 1] == "----" ) {
 			seat_S[seatNum - 1] = this.userName;
-			System.out.println("if문 안 들어감");
 		} else
 			System.out.println("<<< 이미 예약된 좌석입니다. >>>");
 	}
@@ -55,7 +53,7 @@ public class Reservation extends CheckSeat {
 	}
 
 	public void reserSeatB() {
-		if (!seat_B[seatNum - 1].equals("----"))
+		if (seat_B[seatNum - 1].equals("----"))
 			seat_B[seatNum - 1] = this.userName;
 		else
 			System.out.println("<<< 이미 예약된 좌석입니다. >>>");
