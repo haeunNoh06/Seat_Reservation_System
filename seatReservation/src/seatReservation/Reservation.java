@@ -6,17 +6,16 @@ public class Reservation extends CheckSeat {
 
 	Scanner scan = new Scanner(System.in);
 
+	int seatClass;
 	String userName;
 	int seatNum;
 
 	public void run() {
-		System.out.print("[좌석구분] S[1] A[2] B[3] >> ");
-		int seatClass = scan.nextInt();
-
 		initNameToSelectSeat();
+		initSeatLevelToSelectSeat();
 		initNumToSelectSeat();
 
-		switch (seatClass) {
+		switch (this.seatClass) {
 		case 1:
 			reserSeatS();
 			checkSeatS();
@@ -58,6 +57,11 @@ public class Reservation extends CheckSeat {
 	}
 
 	// 이름, 좌석 번호 예약
+	public void initSeatLevelToSelectSeat() {
+		System.out.print("[좌석구분] S[1] A[2] B[3] >> ");
+		this.seatClass = scan.nextInt();
+	}
+	
 	public void initNameToSelectSeat() {
 		System.out.print("이름 >> ");
 		this.userName = scan.next();
