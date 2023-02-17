@@ -2,27 +2,36 @@ package seatReservation;
 
 public class CancelSeat extends Reservation {
 
+	String cancelName;
 	int cancelSeatLevel;
 	int cancelSeatNum;
-	String cancelName;
 
 	public void run() {
+		initCancelName();
 		initCancelSeatLevel();
 		initCancelSeatNum();
-		initCancelName();
 
 		switch (this.cancelSeatLevel) {
 		case 1:
-			System.out.println((seat_S[cancelSeatNum - 1].equals(this.cancelName) ? successCancelMsg()
-					: "<<< 예약 정보가 맞지 않습니다 >>>"));
+			if (seat_S[cancelSeatNum - 1].equals(this.cancelName)) {
+				deleteSuccessReser(seat_S);
+				successCancelMsg();
+			} else 
+				System.out.println("<<< 예약 정보가 맞지 않습니다 >>>");
 			break;
 		case 2:
-			System.out.println((seat_A[cancelSeatNum - 1].equals(this.cancelName) ? successCancelMsg()
-					: "<<< 예약 정보가 맞지 않습니다 >>>"));
+			if (seat_A[cancelSeatNum - 1].equals(this.cancelName)) {
+				deleteSuccessReser(seat_A);
+				successCancelMsg();
+			} else 
+				System.out.println("<<< 예약 정보가 맞지 않습니다 >>>");
 			break;
 		case 3:
-			System.out.println((seat_B[cancelSeatNum - 1].equals(this.cancelName) ? successCancelMsg()
-					: "<<< 예약 정보가 맞지 않습니다 >>>"));
+			if (seat_B[cancelSeatNum - 1].equals(this.cancelName)) {
+				deleteSuccessReser(seat_B);
+				successCancelMsg();
+			} else 
+				System.out.println("<<< 예약 정보가 맞지 않습니다 >>>");
 			break;
 		}
 	}
@@ -35,7 +44,15 @@ public class CancelSeat extends Reservation {
 
 	public void initCancelSeatNum() {
 		System.out.print("[취소할 좌석 번호] >> ");
-		this.cancelSeatNum = scan.nextInt();
+		try {
+			this.cancelSeatNum = scan.nextInt();
+		} catch (Exception e) {
+			e.printStackTrace();
+			//Scanner.nextInt() 문제 해결방법 1 - 남아있는 개행문자를 제거한다.
+			scan.nextLine();
+			System.out.println("숫자를 입력해 주세요....^^");
+			initCancelSeatNum();
+		}
 	}
 
 	public void initCancelName() {
@@ -43,9 +60,9 @@ public class CancelSeat extends Reservation {
 		this.cancelName = scan.next();
 	}
 
-	public String successCancelMsg() {
-		return "<<< " + this.cancelName + "님, " + seatClass() + "좌석의 " + this.cancelSeatNum
-				+ "번 예약이 취소되었습니다 >>>";
+	public void successCancelMsg() {
+		System.out.println("<<< " + this.cancelName + "님, " + seatClass() + "좌석의 " + this.cancelSeatNum
+				+ "번 예약이 취소되었습니다 >>>");
 	}
 
 	public char seatClass() {
@@ -58,6 +75,11 @@ public class CancelSeat extends Reservation {
 			return 'B';
 		}
 		return 0;
+	}
+	
+	// 빈 자리로 변경
+	public void deleteSuccessReser(String[] seatLevel) {
+		seatLevel[this.cancelSeatNum-1] = "----"; 
 	}
 
 }
