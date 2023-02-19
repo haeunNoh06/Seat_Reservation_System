@@ -1,4 +1,4 @@
-package seatReservation;
+package play;
 
 import java.util.Scanner;
 

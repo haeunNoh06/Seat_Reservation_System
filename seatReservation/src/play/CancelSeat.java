@@ -1,4 +1,4 @@
-package seatReservation;
+package play;
 
 public class CancelSeat extends Reservation {
 

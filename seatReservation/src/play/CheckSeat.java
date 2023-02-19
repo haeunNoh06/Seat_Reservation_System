@@ -1,4 +1,4 @@
-package seatReservation;
+package play;
 
 // 좌석 조회
 public class CheckSeat {
