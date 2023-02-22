@@ -24,7 +24,8 @@ public class LogInFrame extends JFrame {
 	JLabel lbLine = new JLabel("|");// 찾기 할 때 사이에 있는 줄
 	JLabel lbImg = new JLabel(new ImageIcon("./imgs/movieImg.png"));
 
-	JPanel pn = new JPanel();
+	JPanel pnTopBlue = new JPanel();
+	JPanel pnMain = new JPanel();
 
 	JTextField tfID = new JTextField(15);
 	JTextField tfPW = new JTextField(20);
@@ -34,14 +35,16 @@ public class LogInFrame extends JFrame {
 	JButton btnFindID = new JButton("아이디 찾기");
 	JButton btnFindPW = new JButton("비밀번호 찾기");
 
-	private final String ID = "haeun06";
-	private final int PW = 1234;
+	private String ID = "";
+	private int PW;
 
 	public void run() {
 
 		set();
 
-		pn.setLayout(null);
+		pnMain.setLayout(null);
+		pnTopBlue.setBackground(new Color(53, 121, 247));
+		pnTopBlue.setBounds(0, 0, 500, 60);
 
 //		Container c = getContentPane();
 //		c.add(lbImg);
@@ -56,13 +59,7 @@ public class LogInFrame extends JFrame {
 		tfID = setTextField("tfID", "ID");
 		tfPW = setTextField("tfPW", "Password");
 
-		// 로그인 성공 여부
-		btnLogin.addActionListener(e -> {
-			if (tfID.getText().equals(ID))
-				CommonUtil.infoMsg(this, "로그인에 성공하셨습니다.");
-			else
-				CommonUtil.errMsg(this, "아이디가 맞지 않습니다.");
-		});
+		acceptLogin();// 로그인 성공 여부
 
 		btnLogin.setBackground(Color.WHITE);
 		btnLogin.setForeground(new Color(53, 121, 247));
@@ -73,7 +70,7 @@ public class LogInFrame extends JFrame {
 		btnFindPW.setForeground(Color.gray.brighter());
 
 		lbImg.setBounds(100, 100, 100, 100);
-		
+
 		tfID.setBounds(40, 300, 400, 40);
 		tfPW.setBounds(40, 350, 400, 40);
 
@@ -86,22 +83,22 @@ public class LogInFrame extends JFrame {
 		lbLine.setFont(CommonUtil.fontSize15);
 		lbLine.setForeground(Color.gray.brighter());
 
-		
-//		pn.setBounds(200,200,500, 600);
-		
-		pn.add(tfID);
-		pn.add(tfPW);
+		pnMain.setBackground(Color.WHITE);
+		pnMain.setBounds(0, 60, 500, 720);
 
-		pn.add(btnLogin);
-		pn.add(btnJoin);
-		pn.add(btnFindID);
-		pn.add(btnFindPW);
+		pnMain.add(tfID);
+		pnMain.add(tfPW);
 
-		pn.add(lbLine);
+		pnMain.add(btnLogin);
+		pnMain.add(btnJoin);
+		pnMain.add(btnFindID);
+		pnMain.add(btnFindPW);
 
-		pn.add(lbImg);
-		this.add(pn);
-//		this.add(pnLogin);
+		pnMain.add(lbLine);
+
+//		pnMain.add(lbImg);
+		this.add(pnTopBlue);
+		this.add(pnMain);
 	}
 
 	void set() {
@@ -115,6 +112,26 @@ public class LogInFrame extends JFrame {
 //		setBackground(new Color(255, 255, 255));
 	}
 
+	void acceptLogin() {
+		// 로그인 성공 여부
+		btnLogin.addActionListener(e -> {
+			if (ID.equals("")) {
+				CommonUtil.errMsg(this, "아이디가 존재하지 않습니다.\n회원가입이 필요합니다.");
+				tfID.setText("");
+				tfPW.setText("");
+				tfID = setTextField("tfID", "ID");
+				tfPW = setTextField("tfPW", "Password");
+			} else {
+				if (tfID.getText().equals(ID) && tfPW.getText().equals(PW+"") ) {
+					this.ID = tfID.getText();
+					this.PW = Integer.parseInt(tfPW.getText());
+					CommonUtil.infoMsg(this, "로그인에 성공하셨습니다.");
+				} else
+					CommonUtil.errMsg(this, "아이디가 맞지 않습니다.");
+			}
+		});
+	}
+	
 	JTextField setTextField(String name, String placeholder) {
 		JTextField tf = new JTextField();
 
