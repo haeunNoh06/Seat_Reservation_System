@@ -64,6 +64,9 @@ public class CommonUtil extends JFrame {
 	public JTextField setTextField(String name, String placeholder) {
 		JTextField tf = new JTextField();
 
+		tf.setForeground(Color.gray.brighter());
+		tf.setText(placeholder);
+
 		tf.addFocusListener(new FocusListener() {
 
 			@Override
@@ -91,15 +94,20 @@ public class CommonUtil extends JFrame {
 	}
 
 	// password textField 세팅
+	
+	// TODO : 비밀번호 암호화 계속 나타나기
 	public JPasswordField setPWTextField(String name, String placeholder) {
 		JPasswordField pf = new JPasswordField();
+
+		pf.setForeground(Color.gray.brighter());
+		pf.setText(placeholder);
 
 		pf.addFocusListener(new FocusListener() {
 
 			@Override
 			public void focusLost(FocusEvent e) {
 				// 입력 여부
-				if (pf.getPassword().equals("")) {
+				if ( placeholder == null ) {
 					pf.setForeground(Color.gray.brighter());
 					pf.setText(placeholder);
 				}
@@ -108,7 +116,9 @@ public class CommonUtil extends JFrame {
 			@Override
 			public void focusGained(FocusEvent e) {
 
-				if (pf.getPassword().equals(placeholder) || pf.getPassword().equals("")) {
+				// 
+//				if (pf.getPassword().equals(placeholder) || pf.getPassword().clone() == pf.get) {
+				if ( pf.getPassword().length == placeholder.length()) {
 					pf.setText("");
 					pf.setForeground(Color.BLACK);
 				}
